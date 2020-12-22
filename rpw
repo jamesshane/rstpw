@@ -1,0 +1,16 @@
+#!/bin/bash
+
+TIMER=0;
+while [ $TIMER -le 5 ]
+do
+    sleep 60
+    TIMER=$(( $TIMER + 1 ))
+    echo "TIMER $TIMER"
+done
+#sleep 300;
+NEWPW=$(tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c 4  ; echo)
+echo "New Password: $NEWPW"
+echo -e "$NEWPW\n$NEWPW" | sudo passwd j;
+
+echo "New Password: $NEWPW" | ./tsms -c ./tsms.cfg 303-961-4448
+eval "bash $0"
